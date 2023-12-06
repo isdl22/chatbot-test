@@ -7,4 +7,3 @@ tiktoken
 faiss-cpu 
 chromadb
 pysqlite3-binary
-sqlite3
