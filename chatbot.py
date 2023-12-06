@@ -21,14 +21,11 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 # temperature는 0에 가까워질수록 형식적인 답변을 내뱉고, 1에 가까워질수록 창의적인 답변을 내뱉음
 llm = ChatOpenAI(temperature=0.2)
 
-from langchain.document_loaders import PyPDFLoader
+# 어떤 파일을 학습시키는지에 따라 위 내용을 참고하며 코드를 바꿔주세요. ex) pdf, html, csv
+from langchain.document_loaders import WebBaseLoader
 
-loader = PyPDFLoader("경제신문스크랩 가이드.pdf")
-pages = loader.load_and_split()
-
-data = []
-for content in pages:
-    data.append(content)
+loader = WebBaseLoader("https://dalpha.so/ko/howtouse?scrollTo=custom")
+data = loader.load()
 
 
 # 올린 파일 내용 쪼개기
