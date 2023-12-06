@@ -1,3 +1,7 @@
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
@@ -5,9 +9,7 @@ from langchain.chat_models import ChatOpenAI
 import streamlit as st
 import time
 import os
-__import(‘pysqlite3’)__
-import sys
-sys.modules[‘sqlite3’] = sys.modules.pop(‘pysqlite3’)
+
 # 여기서 자신의 OpenAI api key로 바꿔주세요
 #os.environ["OPENAI_API_KEY"] =""
 
