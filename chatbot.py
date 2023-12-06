@@ -27,7 +27,6 @@ from langchain.document_loaders import WebBaseLoader
 loader = WebBaseLoader("https://dalpha.so/ko/howtouse?scrollTo=custom")
 data = loader.load()
 
-
 # 올린 파일 내용 쪼개기
 text_splitter = RecursiveCharacterTextSplitter(chunk_size = 1000, chunk_overlap = 0)
 all_splits = text_splitter.split_documents(data)
@@ -43,8 +42,8 @@ from langchain.agents.agent_toolkits import create_retriever_tool
 
 tool = create_retriever_tool(
     retriever,
-    "Role_in_evaluating_and_revising_resumes",
-    "Evaluate and revise the contents of the customer resumes and then return the contents",
+    "cusomter_service",
+    "Searches and returns documents regarding the customer service guide.",
 )
 tools = [tool]
 
@@ -64,35 +63,12 @@ from langchain.prompts import MessagesPlaceholder
 # AI 에이전트가 사용할 프롬프트 짜주기
 system_message = SystemMessage(
     content=(
-        "You evaluate and revise the contents of the customer's resumes and then return the contents."
+        "You are a nice customer service agent."
         "Do your best to answer the questions."
         "Feel free to use any tools available to look up "
         "relevant information, only if necessary"
-        "Do not generate false answers to questions that are not related to 자소서바이블.pdf."
+        "Do not generate false answers to questions that are not related to the customer service guide."
         "If you don't know the answer, just say that you don't know. Don't try to make up an answer."
-        """내 자소서를 비레체로 평가해주세요라고 하면 자소서바이블.pdf 2페이지 내용을 기반으로 아래의 예시처럼 체크해준다.
-        1. ‘질문에 대한 답’을 하고 있는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ ////
-        2. 결론이 ‘근거’를 가지고 있는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ ////
-        3. 소제목 또는 첫 문장이 ‘요약과 압축’이 되어있는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ ////
-        4. 말하고자 하는 결론이 ‘서두에 배치’되어 있는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ ////
-        5. 근거가 직무,산업,직장 중 한 가지와 ‘연결’되었는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ ////
-        6. 한 개의 문단 또는 답변에서 ‘한 개의 메시지’로 답변했는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ ////
-        7. 문장을 최대한 ‘짧게 구성’했는가?
-          // 평가 결과: 만족 또는 미흡
-          // 평가 이유: ㅇㅇㅇㅇ
-        """
         "Make sure to answer in Korean."
     )
 )
@@ -117,7 +93,7 @@ agent_executor = AgentExecutor(
 )
 
 # 웹사이트 제목
-st.title("형PT")
+st.title("AI 상담원")
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
@@ -130,7 +106,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # 웹사이트에서 유저의 인풋을 받고 위에서 만든 AI 에이전트 실행시켜서 답변 받기
-if prompt := st.chat_input("내 자소서를 비레체로 평가해주세요."):
+if prompt := st.chat_input("Dalpha AI store는 어떻게 사용하나요?"):
 
 # 유저가 보낸 질문이면 유저 아이콘과 질문 보여주기
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -145,7 +121,7 @@ if prompt := st.chat_input("내 자소서를 비레체로 평가해주세요."):
         result = agent_executor({"input": prompt})
         for chunk in result["output"].split():
             full_response += chunk + " "
-            time.sleep(0.5)
+            time.sleep(0.1)
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
