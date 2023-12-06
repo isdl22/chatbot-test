@@ -23,7 +23,7 @@ llm = ChatOpenAI(temperature=0.2)
 
 from langchain.document_loaders import PyPDFLoader
 
-loader = PyPDFLoader("/content/drive/My Drive/changeup_input/자소서바이블.pdf")
+loader = PyPDFLoader("자주 쓰는 링크 정리.pdf")
 pages = loader.load_and_split()
 
 data = []
