@@ -23,7 +23,7 @@ llm = ChatOpenAI(temperature=0.2)
 
 from langchain.document_loaders import PyPDFLoader
 
-loader = PyPDFLoader("자주 쓰는 링크 정리.pdf")
+loader = PyPDFLoader("경제신문스크랩 가이드.pdf")
 pages = loader.load_and_split()
 
 data = []
