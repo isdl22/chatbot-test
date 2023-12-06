@@ -5,7 +5,10 @@ from langchain.chat_models import ChatOpenAI
 import streamlit as st
 import time
 import os
-
+import(‘pysqlite3’)
+import sys
+sys.modules[‘sqlite3’]
+sys.modules.pop(‘pysqlite3’)
 # 여기서 자신의 OpenAI api key로 바꿔주세요
 #os.environ["OPENAI_API_KEY"] =""
 
