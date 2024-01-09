@@ -11,7 +11,7 @@ def main():
     st.title("고객 컨설팅 데이터")
     
     # 데이터 불러오기
-    data = data = pd.read_csv('1대1_컨설팅_데이터.csv', encoding='ms949')
+    data = pd.read_csv('1대1_컨설팅_데이터.csv', encoding='ms949')
 
     st.sidebar.header("Navigation")
     selected_section = st.sidebar.radio("Select a Section", ["기본 정보", "경력 기술서 정보", "설문 정보", "고민 사항"])
