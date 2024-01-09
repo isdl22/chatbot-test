@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
 def load_data():
-    data = pd.read_excel('/Users/leehanwoong/changeup_web/1대1 컨설팅 데이터.xlsx')  # 모든 시트를 불러옴
+    data = pd.read_excel('1대1 컨설팅 데이터.xlsx')  # 모든 시트를 불러옴
     return data
 
 def main():
