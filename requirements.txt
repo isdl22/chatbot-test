@@ -7,3 +7,6 @@ tiktoken
 faiss-cpu 
 chromadb
 pysqlite3-binary
+pandas
+numpy
+matplotlib
