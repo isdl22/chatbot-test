@@ -3,15 +3,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import numpy as np
-def load_data():
-    data = pd.read_csv('1대1_컨설팅_데이터.csv',engine='python')  # 모든 시트를 불러옴
-    return data
+#def load_data():
+#    data = pd.read_csv('1대1_컨설팅_데이터.csv', encoding='ms949')  # 모든 시트를 불러옴
+#    return data
 
 def main():
     st.title("고객 컨설팅 데이터")
-
+    
     # 데이터 불러오기
-    data = load_data()
+    data = data = pd.read_csv('1대1_컨설팅_데이터.csv', encoding='ms949')
 
     st.sidebar.header("Navigation")
     selected_section = st.sidebar.radio("Select a Section", ["기본 정보", "경력 기술서 정보", "설문 정보", "고민 사항"])
